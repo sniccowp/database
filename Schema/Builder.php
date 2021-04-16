@@ -5,6 +5,7 @@ namespace Illuminate\Database\Schema;
 use Closure;
 use Doctrine\DBAL\Types\Type;
 use Illuminate\Database\Connection;
+use Illuminate\Database\ConnectionInterface;
 use InvalidArgumentException;
 use LogicException;
 use RuntimeException;
@@ -49,10 +50,10 @@ class Builder
     /**
      * Create a new database Schema manager.
      *
-     * @param  \Illuminate\Database\Connection  $connection
+     * @param  \Illuminate\Database\ConnectionInterface  $connection
      * @return void
      */
-    public function __construct(Connection $connection)
+    public function __construct(ConnectionInterface $connection)
     {
         $this->connection = $connection;
         $this->grammar = $connection->getSchemaGrammar();
