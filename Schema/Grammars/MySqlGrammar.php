@@ -2,7 +2,7 @@
 
 namespace Illuminate\Database\Schema\Grammars;
 
-use Illuminate\Database\Connection;
+use Illuminate\Database\ConnectionInterface;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Fluent;
 use RuntimeException;
@@ -30,7 +30,7 @@ class MySqlGrammar extends Grammar
      * Compile a create database command.
      *
      * @param  string  $name
-     * @param  \Illuminate\Database\Connection  $connection
+     * @param  \Illuminate\Database\ConnectionInterface  $connection
      * @return string
      */
     public function compileCreateDatabase($name, $connection)
@@ -82,10 +82,10 @@ class MySqlGrammar extends Grammar
      *
      * @param  \Illuminate\Database\Schema\Blueprint  $blueprint
      * @param  \Illuminate\Support\Fluent  $command
-     * @param  \Illuminate\Database\Connection  $connection
+     * @param  \Illuminate\Database\ConnectionInterface  $connection
      * @return array
      */
-    public function compileCreate(Blueprint $blueprint, Fluent $command, Connection $connection)
+    public function compileCreate(Blueprint $blueprint, Fluent $command, ConnectionInterface $connection)
     {
         $sql = $this->compileCreateTable(
             $blueprint, $command, $connection
@@ -127,11 +127,11 @@ class MySqlGrammar extends Grammar
      * Append the character set specifications to a command.
      *
      * @param  string  $sql
-     * @param  \Illuminate\Database\Connection  $connection
+     * @param  \Illuminate\Database\ConnectionInterface  $connection
      * @param  \Illuminate\Database\Schema\Blueprint  $blueprint
      * @return string
      */
-    protected function compileCreateEncoding($sql, Connection $connection, Blueprint $blueprint)
+    protected function compileCreateEncoding($sql, ConnectionInterface $connection, Blueprint $blueprint)
     {
         // First we will set the character set if one has been set on either the create
         // blueprint itself or on the root configuration for the connection that the
@@ -158,11 +158,11 @@ class MySqlGrammar extends Grammar
      * Append the engine specifications to a command.
      *
      * @param  string  $sql
-     * @param  \Illuminate\Database\Connection  $connection
+     * @param  \Illuminate\Database\ConnectionInterface  $connection
      * @param  \Illuminate\Database\Schema\Blueprint  $blueprint
      * @return string
      */
-    protected function compileCreateEngine($sql, Connection $connection, Blueprint $blueprint)
+    protected function compileCreateEngine($sql, ConnectionInterface $connection, Blueprint $blueprint)
     {
         if (isset($blueprint->engine)) {
             return $sql.' engine = '.$blueprint->engine;
